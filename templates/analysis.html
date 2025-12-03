@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Data Analysis Visualizations</h1>
+    <h2>Correlation Heatmap</h2>
+    <img src="{{ url_for('static', filename='images/correlation_heatmap.png') }}" alt="Correlation Heatmap">
+    
+    <h2>Label Distribution</h2>
+    <img src="{{ url_for('static', filename='images/distribution.png') }}" alt="Distribution">
+    
+    <h2>Feature Importance (Random Forest)</h2>
+    <img src="{{ url_for('static', filename='images/feature_importance.png') }}" alt="Feature Importance">
+    
+    <h2>Boxplot of Features</h2>
+    <img src="{{ url_for('static', filename='images/boxplot.png') }}" alt="Boxplot">
+    
+    <h2>Violin Plot of Features</h2>
+    <img src="{{ url_for('static', filename='images/violinplot.png') }}" alt="Violin Plot">
+    
+    <h2>Pairplot of Selected Features</h2>
+    <img src="{{ url_for('static', filename='images/pairplot.png') }}" alt="Pairplot">
+    
+    <h2>Histogram of Features</h2>
+    <img src="{{ url_for('static', filename='images/histogram.png') }}" alt="Histogram">
+    <img src="{{ url_for('static', filename='images/histogram_all.png') }}" alt="Histogram of All Features" class="img-fluid">
+    
+    <h2>Kernel Density Estimate (KDE)</h2>
+    <img src="{{ url_for('static', filename='images/kdeplot.png') }}" alt="KDE Plot">
+
+    
+{% endblock %}

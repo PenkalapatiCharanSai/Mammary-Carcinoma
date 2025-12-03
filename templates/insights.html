@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Data Insights</h1>
+    <h2>Statistical Summary</h2>
+    {{ stats | safe }}
+    
+    <h2>Label Distribution</h2>
+    <p><strong>Benign (1):</strong> {{ label_dist[1] }}</p>
+    <p><strong>Malignant (0):</strong> {{ label_dist[0] }}</p>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Breast Cancer Prediction</h1>
+    <form method="POST" action="/prediction">
+        <h2>Manual Input</h2>
+        <label>Mean Radius: 
+            <input type="number" step="0.01" name="radius_mean" value="{{ form_data.radius_mean }}" placeholder="e.g., 13.54" required>
+        </label><br>
+        <label>Mean Texture: 
+            <input type="number" step="0.01" name="texture_mean" value="{{ form_data.texture_mean }}" placeholder="e.g., 14.36" required>
+        </label><br>
+        <label>Mean Smoothness: 
+            <input type="number" step="0.01" name="smoothness_mean" value="{{ form_data.smoothness_mean }}" placeholder="e.g., 0.09" required>
+        </label><br>
+        <input type="submit" value="Predict">
+    </form>
+    
+    {% if error %}
+        <p class="error" style="color: red;">{{ error }}</p>
+    {% endif %}
+    
+    {% if predictions %}
+        <div class="result">
+            <h2>Results from Different Models</h2>
+            <p>Here’s what each model predicts based on your input:</p>
+            <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                <tr style="background-color: #f2f2f2;">
+                    <th style="padding: 10px; border: 1px solid #ddd;">Model</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Prediction</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Likelihood of Being Benign</th>
+                </tr>
+                {% for model, pred in predictions.items() %}
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;">{{ model }}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd; color: {{ 'green' if pred[0] == 'Benign' else 'red' }};">
+                            {{ pred[0] }}
+                        </td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">
+                            {{ (probabilities[model][0] * 100) | round(1) }}%
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+            <h2>Overall Prediction</h2>
+            <p>Based on all models combined, the final result is:</p>
+            <p style="font-size: 1.2em; color: {{ 'green' if final_pred == 'Benign' else 'red' }};">
+                <strong>{{ final_pred }}</strong>
+            </p>
+            <p>Average likelihood of being benign: <strong>{{ (confidence * 100) | round(1) }}%</strong></p>
+            <p style="font-size: 0.9em; color: #666;">
+                Note: This is a combined prediction. A higher "likelihood of being benign" means the models are more confident it’s not cancer.
+            </p>
+        </div>
+    {% endif %}
+{% endblock %}
